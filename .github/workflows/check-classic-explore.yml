@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   check-classic-explore:
-    runs-on: macos-latest
+    runs-on: macos-15-intel
     timeout-minutes: 10
     steps:
       - name: Install browser checker

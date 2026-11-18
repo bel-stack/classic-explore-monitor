@@ -15,7 +15,7 @@ This is a ready-to-use GitHub Actions workflow. **It has not been installed or e
 
 - **AVAILABLE:** Classic-specific chart widgets exist, and the Interest over time chart or data response appears. No alert.
 - **LIKELY_RETIRED:** On two independent browser sessions during a single run, the new UI appears and old Classic widgets are absent. A GitHub Issue is created and assigned to the repository owner. The issue title says *may have been retired* because this is not definitive proof.
-- **INCONCLUSIVE:** Google shows a CAPTCHA, blocks the bot, times out, or returns an unexpected layout. No retirement alert. Review the run logs or screenshots manually. If all runs are inconclusive, GitHub cloud monitoring isn't a reliable approach for this page.
+- **INCONCLUSIVE:** Google shows a CAPTCHA, rate-limits the runner, times out, or returns an unexpected layout on both attempts. No retirement alert. Review the run logs or screenshots manually. If all runs are inconclusive, GitHub cloud monitoring isn't a reliable approach for this page.
 
 Screenshots and results are attached to the workflow run under **Artifacts** for seven days. The URL is specifically `https://trends.google.com/trends/explore?q=coconut&date=now%201-d&geo=PH&legacy&hl=en`.
 

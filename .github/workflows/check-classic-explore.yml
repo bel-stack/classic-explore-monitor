@@ -116,13 +116,13 @@ jobs:
             try {
               browser = await chromium.launch({headless: true});
               attempts.push(await inspect(browser, 1));
-              // Only repeat an apparent retirement. The second attempt uses a
-              // fresh browser context to reduce session-specific false positives.
-              if (attempts[0].status === 'LIKELY_RETIRED') {
-                await pause(15000);
+              // Retry any unsuccessful check. Rate limits get a longer pause,
+              // and the retry uses a fresh browser context.
+              if (attempts[0].status !== 'AVAILABLE') {
+                await pause(attempts[0].rateLimited ? 60000 : 15000);
                 attempts.push(await inspect(browser, 2));
               }
-              if (attempts[0].status === 'AVAILABLE') status = 'AVAILABLE';
+              if (attempts.some(x => x.status === 'AVAILABLE')) status = 'AVAILABLE';
               else if (attempts.length === 2 && attempts.every(x => x.status === 'LIKELY_RETIRED')) {
                 status = 'LIKELY_RETIRED';
               }

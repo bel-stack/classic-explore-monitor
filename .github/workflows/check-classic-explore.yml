@@ -31,7 +31,9 @@ jobs:
           const fs = require('node:fs');
           const { chromium } = require('playwright');
 
-          const URL = 'https://trends.google.com/trends/explore?q=coconut&date=now%201-d&geo=PH&legacy&hl=en';
+          // Do not call this constant URL: that would shadow Node's global URL
+          // constructor while Playwright is loading.
+          const TARGET_URL = 'https://trends.google.com/trends/explore?q=coconut&date=now%201-d&geo=PH&legacy&hl=en';
           const pause = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
           async function inspect(browser, visitNumber) {
@@ -51,7 +53,7 @@ jobs:
             let responseCode = null;
             let navigationError = '';
             try {
-              const response = await page.goto(URL, {
+              const response = await page.goto(TARGET_URL, {
                 waitUntil: 'domcontentloaded', timeout: 45000
               });
               responseCode = response?.status() ?? null;
@@ -130,7 +132,7 @@ jobs:
               if (browser) await browser.close().catch(() => {});
               fs.writeFileSync('classic-status.txt', status + '\n');
               fs.writeFileSync('classic-result.json', JSON.stringify({
-                checkedAt: new Date().toISOString(), url: URL, status, attempts
+                checkedAt: new Date().toISOString(), url: TARGET_URL, status, attempts
               }, null, 2));
               console.log(JSON.stringify({status, attempts}, null, 2));
               if (status === 'INCONCLUSIVE') {
@@ -142,7 +144,7 @@ jobs:
 
       - name: Save screenshots and check details
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: classic-explore-check
           path: |

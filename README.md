@@ -17,7 +17,7 @@ This is a ready-to-use GitHub Actions workflow. **It has not been installed or e
 - **LIKELY_RETIRED:** On two independent browser sessions during a single run, the new UI appears and old Classic widgets are absent. A GitHub Issue is created and assigned to the repository owner. The issue title says *may have been retired* because this is not definitive proof.
 - **INCONCLUSIVE:** Google shows a CAPTCHA, rate-limits the runner, times out, or returns an unexpected layout on both attempts. No retirement alert. Review the run logs or screenshots manually. If all runs are inconclusive, GitHub cloud monitoring isn't a reliable approach for this page.
 
-Screenshots and results are attached to the workflow run under **Artifacts** for seven days. The URL is specifically `https://trends.google.com/trends/explore?q=coconut&date=now%201-d&geo=PH&legacy&hl=en`.
+Screenshots and results are attached to the workflow run under **Artifacts** for seven days. The workflow uses GitHub's macOS hosted runner because Google rate-limited the Linux runner during setup. The URL is specifically `https://trends.google.com/trends/explore?q=coconut&date=now%201-d&geo=PH&legacy&hl=en`.
 
 GitHub schedule times may be delayed, and public repo scheduled workflows can be disabled after 60 days with no repository activity. Google may block automated access to Explore, and its robots.txt has been reported to restrict `explore` automated crawling. Use a low frequency, respect any access restrictions, and don't treat automated failure as definitive retirement.
 
